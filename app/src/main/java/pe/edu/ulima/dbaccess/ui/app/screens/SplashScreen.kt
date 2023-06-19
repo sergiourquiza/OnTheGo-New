@@ -1,5 +1,9 @@
 package pe.edu.ulima.dbaccess.ui.app.screens
 
+
+import android.content.Intent
+import android.os.Handler
+import android.window.SplashScreen
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.*
@@ -12,18 +16,26 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import pe.edu.ulima.dbaccess.ui.theme.Gray200
 import pe.edu.ulima.dbaccess.ui.theme.Orange200
 import pe.edu.ulima.dbaccess.R
+import pe.edu.ulima.dbaccess.activities.MainActivity
 import pe.edu.ulima.dbaccess.ui.app.viewmodels.SplashScreenViewModel
 
+@Preview
 @Composable
-public fun SplashScreen(
-    navController: NavHostController,
-    splashScreenViewModel: SplashScreenViewModel,
-    navigate: Unit,){
+public fun SplashScreenPreview(){
+    SplashScreen(
+        rememberNavController()
+    )
+}
+
+@Composable
+public fun SplashScreen(navController: NavHostController){
     val caslonFont = FontFamily(Font(R.font.caslon_classico_sc_regular))
 
     Box(
@@ -37,7 +49,7 @@ public fun SplashScreen(
         ){
             Image(
                 painter = painterResource(id = R.drawable.ic_otg),
-                contentDescription = "Logo OTG",
+                contentDescription = "Logo Ulima",
                 modifier = Modifier.size(120.dp).padding(bottom = 10.dp),
                 colorFilter = ColorFilter.tint(
                     color = if(isSystemInDarkTheme()) Orange200 else Gray200
@@ -50,4 +62,8 @@ public fun SplashScreen(
             )
         }
     }
+
+    Handler().postDelayed({
+        navController.navigate("/login/")
+    }, 1500)
 }
